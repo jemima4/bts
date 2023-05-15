@@ -1,0 +1,59 @@
+name: Push to ECR
+
+on:
+
+  push:
+
+    branches:
+
+      - master
+
+jobs:
+
+  push_to_ecr:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout code
+
+        uses: actions/checkout@v2
+
+      - name: Configure AWS credentials
+
+        uses: aws-actions/configure-aws-credentials@v1
+
+        with:
+
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+
+          aws-secret-access-key: ${{ AWS_SECRET_ACCESS_KEY }}
+
+          aws-region: us-west-2
+
+      - name: Login to Amazon ECR
+
+        id: login-ecr
+
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Build and tag Docker image
+
+        run: |
+
+          docker build -t facebooc .
+
+          docker tag jimin:latest 445927837254.dkr.ecr.us-east-1.amazonaws.com/jimin:latest
+
+      - name: Push Docker image to ECR
+
+        run: |
+
+          docker push 445927837254.dkr.ecr.us-east-1.amazonaws.com/jimin:latest
+
+      - name: Display ECR image URL
+
+        run: |
+
+          echo ${{ steps.login-ecr.outputs.registry }}
