@@ -44,13 +44,13 @@ jobs:
 
           docker build -t facebooc .
 
-          docker tag facebooc:latest public.ecr.aws/o2u8f2p6/jimin:latest
+          docker tag jimin:latest 445927837254.dkr.ecr.us-east-1.amazonaws.com/jimin:latest
 
       - name: Push Docker image to ECR
 
         run: |
 
-          docker push public.ecr.aws/o2u8f2p6/jimin:latest
+          docker push 445927837254.dkr.ecr.us-east-1.amazonaws.com/jimin:latest
 
       - name: Display ECR image URL
 
