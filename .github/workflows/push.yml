@@ -26,13 +26,13 @@ jobs:
 
       - name: Build and tag Docker image
         run: |
-          docker build -t faceebooc .
+          docker build -t jimin .
           docker tag jimin:latest 445927837254.dkr.ecr.us-east-1.amazonaws.com/jimin:latest
 
       - name: Push Docker image to ECR
         run: |
           docker push 445927837254.dkr.ecr.us-east-1.amazonaws.com/jimin:latest
-          
+
       - name: Display ECR image URL
         run: |
           echo ${{ steps.login-ecr.outputs.registry }}
